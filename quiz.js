@@ -26,7 +26,6 @@ function getAnswer() {
   };
   answers.forEach((element) => {
     if (element.checked) {
-      console.log(element);
       ans[element.id] = true;
     }
   });
@@ -47,7 +46,9 @@ function startQuiz(data) {
     if (sec < 0) {
       currentQuestion++;
       clearInterval(id);
-      startQuiz(data);
+      if (currentQuestion < data.length) {
+        startQuiz(data);
+      }
     }
     sec > 0 ? (timeVal.innerHTML = `${min}: ${sec}`) : 00;
     time--;
@@ -55,7 +56,6 @@ function startQuiz(data) {
   submit.addEventListener("click", () => {
     let currentScore = 0;
     const checkAns = getAnswer();
-    console.log(checkAns);
     if (
       JSON.stringify([checkAns.one, checkAns.two, checkAns.three]) ===
         JSON.stringify([
@@ -63,7 +63,7 @@ function startQuiz(data) {
           currentQuizData.two,
           currentQuizData.three,
         ]) &&
-      currentQuestion <= data.length
+      currentQuestion < data.length
     ) {
       currentScore++;
       score++;
@@ -72,7 +72,6 @@ function startQuiz(data) {
     }
 
     const areFalse = Object.values(checkAns).every((value) => value === false);
-    console.log(areFalse);
     if (areFalse) {
       window.alert("Please enter a value before submitting");
     } else {
@@ -81,15 +80,19 @@ function startQuiz(data) {
   });
   next.addEventListener("click", () => {
     control.disabled = false;
-    currentQuestion++;
     valueOfCurrentScore = 0;
     displayscore.innerText = 0;
+    currentQuestion++;
+    console.log(currentQuestion);
     if (currentQuestion < data.length) {
       startQuiz(data);
     } else {
       box.classList.add("quiz-box-hide");
       end.classList.add("game-end-show");
       finalScore.innerText = score;
+      setTimeout(()=>{
+        window.location.href = "/login.html";
+      }, 4000)
     }
   });
   viewScore.addEventListener("click", () => {

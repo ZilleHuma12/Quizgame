@@ -4,29 +4,49 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./admin.js"></script>
+    <link rel="stylesheet" href="./quiz.css" />
     <title>Add Quiz</title>
   </head>
   <body>
-    <div>
-      <form action="#" onsubmit="event.preventDefault(); submitForm();" id="post">
-        <label for="question">Enter the quiz question:</label><br />
-        <input type="text" id="question" name="question" required /><br />
-        <label for="answer1">Answer1:</label><br />
-        <input type="text" id="answer1" name="answer1" required /><br />
-        <label for="answer2">Answer2:</label><br />
-        <input type="text" id="answer2" name="answer2" required /><br />
-        <label for="answer3">Answer3:</label><br />
-        <input type="text" id="answer3" name="answer3" required /><br />
-        <label for="answer">Correct answer:</label><br />
-        <input type="checkbox" id="one" name="answer" class="checkbox"/>
-        <label for="one">Answer1</label>
-        <input type="checkbox" id="two" name="answer" class="checkbox" />
-        <label for="two">Answer2</label>
-        <input type="checkbox" id="three" name="answer" class="checkbox" />
-        <label for="three">Answer3</label><br/><br/>
-        <input type="submit" value="Submit" />
-      </form>
+    <div class="main">
+      <div class="form-box" style="padding: 50px">
+        <form
+          class="layout-form"
+          action="#"
+          onsubmit="event.preventDefault(); submitForm();"
+          id="post"
+        >
+          <div>
+            <label for="question">Enter the quiz question:</label><br />
+            <input type="text" id="question" name="question" required /><br />
+            <label for="answer1">Answer1:</label><br />
+          </div>
+          <div>
+            <input type="text" id="answer1" name="answer1" required /><br />
+            <label for="answer2">Answer2:</label><br />
+            <input type="text" id="answer2" name="answer2" required /><br />
+          </div>
+          <div>
+            <label for="answer3">Answer3:</label><br />
+            <input type="text" id="answer3" name="answer3" required /><br />
+          </div>
+          <div><label for="answer">Correct answer:</label><br /></div>
+          <div>
+            <input type="checkbox" id="one" name="answer" class="checkbox" />
+            <label for="one">Answer1</label>
+          </div>
+          <div>
+            <input type="checkbox" id="two" name="answer" class="checkbox" />
+            <label for="two">Answer2</label>
+          </div>
+          <div>
+            <input type="checkbox" id="three" name="answer" class="checkbox" />
+            <label for="three">Answer3</label><br /><br />
+          </div>
+          <input type="submit" value="Submit" class="btn-form" />
+        </form>
+      </div>
     </div>
+    <script src="./admin.js"></script>
   </body>
 </html>
