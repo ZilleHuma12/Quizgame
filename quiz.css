@@ -1,0 +1,9 @@
+.quiz-box-hide{
+    display: none;
+}
+.game-end{
+visibility:hidden;
+}
+.game-end-show{
+    visibility: visible;
+}

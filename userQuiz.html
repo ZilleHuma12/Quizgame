@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./quiz.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="quiz-box">
+        <div>Time:<p id="time"></p></div>
+      <form
+        method="post"
+        onsubmit="event.preventDefault()"
+        id="post"
+        autocomplete="off"
+      >
+          <label for="question" id="ques">Question 1:</label><br />
+          <input type="checkbox" id="one" name="answer" class="answer" />
+          <label for="answer1" id="ans1">Answer1</label><br />
+          <input type="checkbox" id="two" name="answer" class="answer" />
+          <label for="answer2" id="ans2">Answer2</label><br />
+          <input type="checkbox" id="three" name="answer" class="answer" />
+          <label for="answer3" id="ans3">Answer3</label><br />
+          <input type="submit" value="submit" id="submit" /><br /><br />
+          <div>
+            <label for="score" id="displayscore"></label>
+            <button type="submit" id="viewanswer" value="submit">
+              View answer
+            </button>
+            <button type="submit" id="next" value="submit">Next</button>
+          </div>
+      </form>
+    </div>
+    <div class="game-end">
+        <h1>Game Ended</h1>
+        <p>Your total score is:</p>
+        <h1><span id="finalscore">0</span>/5</h1>
+    </div>
+    <script src="./quiz.js"></script>
+  </body>
+</html>
