@@ -36,7 +36,6 @@ function getAnswer() {
 }
 function setTime() {
   id = setInterval(() => {
-    console.log(id);
     const min = Math.floor(time / 60);
     let sec = time % 60;
     if (sec < 0) {
@@ -46,7 +45,6 @@ function setTime() {
         startQuiz(question);
       }
     }
-    console.log(`${min}: ${sec}`);
     sec > 0 ? (timeVal.innerHTML = `${min}: ${sec}`) : 00;
     time--;
   }, 1000);
