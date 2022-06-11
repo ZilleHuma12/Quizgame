@@ -4,7 +4,7 @@ var two = document.getElementById("ans2");
 var three = document.getElementById("ans3");
 var three = document.getElementById("ans3");
 var submit = document.getElementById("submit");
-var next = document.getElementById("next");
+var next = document.querySelector("#next");
 var answers = document.querySelectorAll(".answer");
 var viewScore = document.getElementById("viewanswer");
 var displayscore = document.getElementById("displayscore");
@@ -17,6 +17,9 @@ let currentQuestion = 0;
 let score = 0;
 var valueOfCurrentScore = 0;
 var id;
+const startMin = 1;
+let time = startMin * 60;
+let questions;
 
 function getAnswer() {
   let ans = {
@@ -31,6 +34,23 @@ function getAnswer() {
   });
   return ans;
 }
+function setTime() {
+  id = setInterval(() => {
+    console.log(id);
+    const min = Math.floor(time / 60);
+    let sec = time % 60;
+    if (sec < 0) {
+      currentQuestion++;
+      clearInterval(id);
+      if (currentQuestion < question.length) {
+        startQuiz(question);
+      }
+    }
+    console.log(`${min}: ${sec}`);
+    sec > 0 ? (timeVal.innerHTML = `${min}: ${sec}`) : 00;
+    time--;
+  }, 1000);
+}
 
 function startQuiz(data) {
   const currentQuizData = data[currentQuestion];
@@ -38,21 +58,7 @@ function startQuiz(data) {
   one.innerText = currentQuizData.answer1;
   two.innerText = currentQuizData.answer2;
   three.innerText = currentQuizData.answer3;
-  const startMin = 1;
-  let time = startMin * 60;
-  id = setInterval(() => {
-    const min = Math.floor(time / 60);
-    let sec = time % 60;
-    if (sec < 0) {
-      currentQuestion++;
-      clearInterval(id);
-      if (currentQuestion < data.length) {
-        startQuiz(data);
-      }
-    }
-    sec > 0 ? (timeVal.innerHTML = `${min}: ${sec}`) : 00;
-    time--;
-  }, 1000);
+  setTime();
   submit.addEventListener("click", () => {
     let currentScore = 0;
     const checkAns = getAnswer();
@@ -78,27 +84,29 @@ function startQuiz(data) {
       control.disabled = true;
     }
   });
-  next.addEventListener("click", () => {
-    control.disabled = false;
-    valueOfCurrentScore = 0;
-    displayscore.innerText = 0;
-    currentQuestion++;
-    console.log(currentQuestion);
-    if (currentQuestion < data.length) {
-      startQuiz(data);
-    } else {
-      box.classList.add("quiz-box-hide");
-      end.classList.add("game-end-show");
-      finalScore.innerText = score;
-      setTimeout(()=>{
-        window.location.href = "/login.html";
-      }, 4000)
-    }
-  });
-  viewScore.addEventListener("click", () => {
-    displayscore.innerText = valueOfCurrentScore;
-  });
 }
+
+next.addEventListener("click", (e) => {
+  e.preventDefault();
+  control.disabled = false;
+  valueOfCurrentScore = 0;
+  displayscore.innerText = 0;
+  currentQuestion++;
+  if (currentQuestion < questions.length) {
+    startQuiz(questions);
+  } else {
+    box.classList.add("quiz-box-hide");
+    end.classList.add("game-end-show");
+    finalScore.innerText = score;
+    setTimeout(() => {
+      window.location.href = "/login.html";
+    }, 4000);
+  }
+  clearInterval(id);
+});
+viewScore.addEventListener("click", () => {
+  displayscore.innerText = valueOfCurrentScore;
+});
 
 fetch("http://localhost:3001/api/user/getQuizQuestions", {
   method: "GET",
@@ -106,8 +114,8 @@ fetch("http://localhost:3001/api/user/getQuizQuestions", {
 })
   .then((res) => res.json())
   .then((data) => {
-    console.log(data);
     if (currentQuestion < data.length) {
       startQuiz(data);
+      questions = data;
     }
   });
